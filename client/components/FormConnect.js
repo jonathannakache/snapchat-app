@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TextInput, StyleSheet, Button } from "react-native";
+import { View, TextInput, StyleSheet, Text, Button } from "react-native";
 
 export class FormConnect extends Component {
   render() {
@@ -17,10 +17,11 @@ export class FormConnect extends Component {
 
     return (
       <View style={styles.container}>
+        <Text style={styles.title}>SNAPCHAT APP</Text>
         <TextInput
           name="name"
           style={styles.inputStyle}
-          placeholder="Address"
+          placeholder="Nom"
           maxLength={60}
           onChangeText={hundleChangeName}
           value={name}
@@ -29,7 +30,7 @@ export class FormConnect extends Component {
         <TextInput
           name="tel"
           style={styles.inputStyle}
-          placeholder="tel"
+          placeholder="Telephone"
           maxLength={60}
           onChangeText={hundleChangeTel}
           value={tel}
@@ -38,7 +39,7 @@ export class FormConnect extends Component {
         <TextInput
           name="email"
           style={styles.inputStyle}
-          placeholder="email"
+          placeholder="Email"
           maxLength={60}
           onChangeText={hundleChangeEmail}
           value={email}
@@ -47,12 +48,14 @@ export class FormConnect extends Component {
         <TextInput
           name="password"
           style={styles.inputStyle}
-          placeholder="password"
+          placeholder="Mot de passe"
           maxLength={60}
           onChangeText={hundleChangePassword}
           value={password}
         />
-        <Button style={styles.button} onPress={hundleSubmit} title="Submit"></Button>
+        <View style={styles.button}>
+          <Button onPress={hundleSubmit} title="Submit"></Button>
+        </View>
       </View>
     );
   }
@@ -67,28 +70,35 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'#4C6FE5',
-    maxHeight: 400
+    backgroundColor: "#4C6FE5"
   },
   inputStyle: {
-    minHeight: 80,
+    minHeight: 60,
     width: 200,
+    borderRadius: 12,
     backgroundColor: "white",
-    margin: 1,
+    margin: 5,
+    color: "#4C6FE5",
     padding: 20,
     alignSelf: "center",
     borderColor: "white",
     borderWidth: 1
   },
-  button:{
-    // backgroundColor:'#4C6FE5'
-    minHeight: 80,
+  button: {
+    backgroundColor: "#4C6FE5", 
     width: 200,
     backgroundColor: "white",
-    margin: 1,
-    padding: 20,
+    marginTop: 40,
+    padding: 1,
     alignSelf: "center",
     borderColor: "white",
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: 6,
+  },
+  title: {
+    fontSize: 30,
+    marginBottom: 40,
+    color: "white",
+    fontWeight: "bold"
   }
 });

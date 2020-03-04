@@ -1,5 +1,6 @@
 import React from "react";
 import FormConnect from "./components/FormConnect";
+import axios from "axios";
 
 export default class App extends React.Component {
   state = {
@@ -9,8 +10,20 @@ export default class App extends React.Component {
     password: ""
   };
 
-  hundleSubmit = event => {
+  hundleSubmit = async event => {
     event.preventDefault();
+    await axios
+      .post("http://localhost:5000/sendMail", {
+        name: this.state.name,
+        tel: this.state.tel,
+        email: this.state.email
+      })
+      .then(res => {
+        console.log('res:', res.status);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
     this.setState({
       name: "",
@@ -18,8 +31,6 @@ export default class App extends React.Component {
       email: "",
       password: ""
     });
-
-    console.log("name : ", this.state.name);
   };
 
   hundleChangeName = event => {
@@ -63,3 +74,4 @@ export default class App extends React.Component {
     );
   }
 }
+  
