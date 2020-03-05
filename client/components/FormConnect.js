@@ -1,30 +1,81 @@
 import React, { Component } from "react";
-import { View, TextInput, StyleSheet, Text, Button } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Button,
+  Text,
+  TouchableOpacity
+} from "react-native";
+import axios from "axios";
 
 export class FormConnect extends Component {
-  render() {
-    const {
-      hundleSubmit,
-      hundleChangeName,
-      hundleChangeTel,
-      hundleChangeEmail,
-      hundleChangePassword,
-      name,
-      email,
-      tel,
-      password
-    } = this.props;
+  state = {
+    name: "",
+    tel: "",
+    email: "",
+    password: ""
+  };
 
+  hundleSubmit = async event => {
+    event.preventDefault();
+    await axios
+      .post("http://localhost:5000/sendMail", {
+        name: this.state.name,
+        tel: this.state.tel,
+        email: this.state.email
+      })
+      .then(res => {
+        console.log("res:", res.status);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.setState({
+      name: "",
+      tel: "",
+      email: "",
+      password: ""
+    });
+    this.props.navigation.navigate("SendPics");
+  };
+
+  hundleChangeName = event => {
+    this.setState({
+      name: event
+    });
+    console.log("name:", event);
+  };
+  hundleChangeTel = event => {
+    this.setState({
+      tel: event
+    });
+    console.log("tel:", event);
+  };
+  hundleChangeEmail = event => {
+    this.setState({
+      email: event
+    });
+    console.log("email:", event);
+  };
+  hundleChangePassword = event => {
+    this.setState({
+      password: event
+    });
+    console.log("password:", event);
+  };
+  render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>SNAPCHAT APP</Text>
+        <Text style={styles.title}>Snapchat</Text>
         <TextInput
           name="name"
           style={styles.inputStyle}
           placeholder="Nom"
           maxLength={60}
-          onChangeText={hundleChangeName}
-          value={name}
+          onChangeText={this.hundleChangeName}
+          value={this.state.name}
         />
 
         <TextInput
@@ -32,8 +83,8 @@ export class FormConnect extends Component {
           style={styles.inputStyle}
           placeholder="Telephone"
           maxLength={60}
-          onChangeText={hundleChangeTel}
-          value={tel}
+          onChangeText={this.hundleChangeTel}
+          value={this.state.tel}
         />
 
         <TextInput
@@ -41,8 +92,8 @@ export class FormConnect extends Component {
           style={styles.inputStyle}
           placeholder="Email"
           maxLength={60}
-          onChangeText={hundleChangeEmail}
-          value={email}
+          onChangeText={this.hundleChangeEmail}
+          value={this.state.email}
         />
 
         <TextInput
@@ -50,12 +101,11 @@ export class FormConnect extends Component {
           style={styles.inputStyle}
           placeholder="Mot de passe"
           maxLength={60}
-          onChangeText={hundleChangePassword}
-          value={password}
+          onChangeText={this.hundleChangePassword}
+          value={this.state.password}
         />
-        <View style={styles.button}>
-          <Button onPress={hundleSubmit} title="Submit"></Button>
-        </View>
+
+        <Button title="Submit" onPress={this.hundleSubmit} />
       </View>
     );
   }
@@ -85,7 +135,7 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   button: {
-    backgroundColor: "#4C6FE5", 
+    backgroundColor: "#4C6FE5",
     width: 200,
     backgroundColor: "white",
     marginTop: 40,
@@ -93,7 +143,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderColor: "white",
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 6
   },
   title: {
     fontSize: 30,

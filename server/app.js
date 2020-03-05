@@ -4,6 +4,10 @@ const nodemailer = require("nodemailer");
 var bodyParser = require("body-parser");
 require('dotenv').config()
 
+var cors = require('cors');
+
+app.use(cors());
+
 const port = 5000;
 
 app.use(bodyParser.json());
@@ -26,8 +30,10 @@ app.post("/sendMail", (req, res) => {
     secure: false,
     requireTLS: true,
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
+      // user: process.env.EMAIL,
+      // pass: process.env.PASSWORD
+      user: "jondu06700@gmail.com",
+      pass: "jonicojonico"
     }
   });
 
